@@ -47,7 +47,7 @@
 
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-bottom: 30px;
         }
@@ -87,7 +87,7 @@
             grid-column: 1 / -1;
         }
 
-        .half-width {
+        .single-column {
             grid-column: span 1;
         }
 
@@ -143,7 +143,7 @@
 
         <div class="charts-grid">
             <!-- Visualización 1: Coordenadas del Mouse -->
-            <div class="chart-container">
+            <div class="chart-container single-column">
                 <div class="chart-title">🎯 Coordenadas del Mouse</div>
                 <div class="chart-description">Mueve el cursor sobre el área para ver las coordenadas en tiempo real</div>
                 <svg id="coords" width="300" height="300" style="background:lightgrey; cursor:crosshair;"></svg>
@@ -180,15 +180,15 @@
             </div>
 
             <!-- Visualización 4: Animación Staggered -->
-            <div class="chart-container">
+            <div class="chart-container single-column">
                 <div class="chart-title">📊 Barras Animadas</div>
                 <div class="chart-description">Animación escalonada entre dos conjuntos de datos</div>
-                <svg id="stagger" width="600" height="300" style="background:lightgrey; cursor:pointer;"></svg>
+                <svg id="stagger" width="400" height="250" style="background:lightgrey; cursor:pointer;"></svg>
                 <div class="instruction">Haz clic para alternar entre datasets</div>
             </div>
 
             <!-- Visualización 5: Curva de Lissajous -->
-            <div class="chart-container">
+            <div class="chart-container single-column">
                 <div class="chart-title">🌀 Curva de Lissajous</div>
                 <div class="chart-description">Curva matemática animada con efecto de desvanecimiento</div>
                 <svg id="lissajous" width="300" height="300" style="background:lightgrey;"></svg>
@@ -309,8 +309,8 @@
             const mx = d3.max([...ds1, ...ds2]);
             
             const svg = d3.select("#stagger");
-            const scX = d3.scaleLinear().domain([0, n]).range([50, 550]);
-            const scY = d3.scaleLinear().domain([0, mx]).range([250, 50]);
+            const scX = d3.scaleLinear().domain([0, n]).range([30, 370]);
+            const scY = d3.scaleLinear().domain([0, mx]).range([200, 30]);
             
             svg.selectAll("line")
                 .data(ds1)
