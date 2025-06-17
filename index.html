@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -39,7 +39,7 @@
             font-size: 2.5em;
             font-weight: 300;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #32CD32, #228B22);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -109,6 +109,20 @@
             z-index: 1000;
         }
 
+        .loading {
+            text-align: center;
+            color: #228B22;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .error {
+            text-align: center;
+            color: #e74c3c;
+            font-style: italic;
+            padding: 20px;
+        }
+
         @media (max-width: 768px) {
             .charts-grid {
                 grid-template-columns: 1fr;
@@ -124,7 +138,7 @@
         }
 
         .instruction {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #32CD32, #228B22);
             color: white;
             padding: 10px 15px;
             border-radius: 8px;
@@ -137,77 +151,76 @@
 <body>
     <div class="dashboard">
         <div class="header">
-            <h1>🎨 Dashboard Interactivo D3.js</h1>
-            <p>Visualizaciones avanzadas con interactividad y animaciones</p>
+            <h1>D3.js Interactive Dashboard</h1>
+            <h2 style="color: #228B22; font-size: 1.5em; font-weight: 400; margin-bottom: 10px;">Valeria Paredes Dzib</h2>
+            <p>Advanced visualizations with interactivity and animations</p>
         </div>
 
         <div class="charts-grid">
             <!-- Visualización 1: Coordenadas del Mouse -->
-            <div class="chart-container single-column">
-                <div class="chart-title">🎯 Coordenadas del Mouse</div>
-                <div class="chart-description">Mueve el cursor sobre el área para ver las coordenadas en tiempo real</div>
+            <div class="chart-container full-width">
+                <div class="chart-title">🎯Mouse Coordinates</div>
+                <div class="chart-description">Move the cursor over the area to see the coordinates in real time.</div>
                 <svg id="coords" width="300" height="300" style="background:lightgrey; cursor:crosshair;"></svg>
-                <div class="instruction">Mueve el mouse sobre el área gris</div>
+                <div class="instruction">Move the mouse over the gray area</div>
             </div>
 
-            <!-- Visualización 2: Círculos con Gradiente de Distancia -->
+            <!-- Visualización 2: Círculos con Gradiente de Distancia (usando CSV) -->
             <div class="chart-container full-width">
-                <div class="chart-title">🌈 Círculos con Gradiente de Distancia</div>
-                <div class="chart-description">Los círculos cambian de color según la distancia al cursor</div>
-                <div style="display: flex; gap: 20px; justify-content: center;">
-                    <div>
-                        <svg id="brush1" width="300" height="300" style="background:lightgrey; cursor:crosshair;"></svg>
-                        <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">Lima → Amarillo → Rojo</p>
+                <div class="chart-title">🌈Circles with Distance Gradient</div>
+                <div class="chart-description">Circles change color according to the distance to the cursor</div>
+                <div id="csv-status" class="loading">Loading data from GitHub...</div>
+                <div id="csv-visualization" style="display: none;">
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <div>
+                            <svg id="brush1" width="300" height="300" style="background:lightgrey; cursor:crosshair;"></svg>
+                            <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">Lima → Amarillo → Rojo</p>
+                        </div>
+                        <div>
+                            <svg id="brush2" width="300" height="300" style="background:lightgrey;"></svg>
+                            <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">Lima → Amarillo → Azul</p>
+                        </div>
                     </div>
-                    <div>
-                        <svg id="brush2" width="300" height="300" style="background:lightgrey;"></svg>
-                        <p style="text-align: center; margin-top: 10px; font-size: 0.9em;">Lima → Amarillo → Azul</p>
-                    </div>
+                    <div class="instruction">Mueve el mouse sobre el primer panel para ver el efecto</div>
                 </div>
-                <div class="instruction">Mueve el mouse sobre el primer panel para ver el efecto</div>
             </div>
 
             <!-- Visualización 3: Drag and Drop -->
             <div class="chart-container full-width">
-                <div class="chart-title">🎪 Círculos Arrastrables</div>
-                <div class="chart-description">Arrastra los círculos por toda el área</div>
+                <div class="chart-title">🎪Draggable Circles</div>
+                <div class="chart-description">Drag the circles all over the area.</div>
                 <svg id="dragdrop" width="600" height="200" style="background:lightgrey;">
                     <circle cx="100" cy="100" r="20" fill="red"></circle>
                     <circle cx="300" cy="100" r="20" fill="green"></circle>
                     <circle cx="500" cy="100" r="20" fill="blue"></circle>
                 </svg>
-                <div class="instruction">Arrastra cualquier círculo con el mouse</div>
+                <div class="instruction">Drag any circle with the mouse</div>
             </div>
 
             <!-- Visualización 4: Animación Staggered -->
             <div class="chart-container single-column">
-                <div class="chart-title">📊 Barras Animadas</div>
-                <div class="chart-description">Animación escalonada entre dos conjuntos de datos</div>
+                <div class="chart-title">📊Animated Bars</div>
+                <div class="chart-description">Step animation between two datasets</div>
                 <svg id="stagger" width="400" height="250" style="background:lightgrey; cursor:pointer;"></svg>
-                <div class="instruction">Haz clic para alternar entre datasets</div>
+                <div class="instruction">Click to toggle between datasets</div>
             </div>
 
             <!-- Visualización 5: Curva de Lissajous -->
             <div class="chart-container single-column">
-                <div class="chart-title">🌀 Curva de Lissajous</div>
-                <div class="chart-description">Curva matemática animada con efecto de desvanecimiento</div>
+                <div class="chart-title">🌀Lissajous curve</div>
+                <div class="chart-description">Animated mathematical curve with fading effect</div>
                 <svg id="lissajous" width="300" height="300" style="background:lightgrey;"></svg>
-                <div class="instruction">Observa la curva dibujándose automáticamente</div>
+                <div class="instruction">Watch the curve being drawn automatically</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Datos de ejemplo para círculos
-        const circleData = [
-            { A: 50, B: 60 },
-            { A: 80, B: 90 },
-            { A: 120, B: 150 },
-            { A: 200, B: 180 },
-            { A: 250, B: 100 },
-            { A: 70, B: 270 },
-            { A: 100, B: 30 }
-        ];
+        // URL del archivo CSV en GitHub (raw content)
+        const CSV_URL = "https://raw.githubusercontent.com/valinyourarea/primerinformed3/772407ad9db995845ff5ca6376103c12ee9ab6d6/dense.csv";
+        
+        // Variable global para almacenar los datos del CSV
+        let csvData = [];
 
         // 1. Coordenadas del Mouse
         function setupMouseCoords() {
@@ -229,14 +242,50 @@
             });
         }
 
-        // 2. Círculos con Gradiente de Distancia
-        function setupGradientCircles() {
-            const data = circleData.map(d => ({
-                A: d.A,
-                B: d.B,
-                r: Infinity
-            }));
+        // 2. Cargar CSV y configurar Círculos con Gradiente de Distancia
+        async function loadCSVAndSetupGradientCircles() {
+            try {
+                // Cargar el archivo CSV desde GitHub
+                const data = await d3.csv(CSV_URL, d => ({
+                    A: +d.A,
+                    B: +d.B,
+                    r: Infinity
+                }));
+                
+                csvData = data;
+                
+                // Actualizar el estado de carga
+                document.getElementById('csv-status').style.display = 'none';
+                document.getElementById('csv-visualization').style.display = 'block';
+                
+                // Configurar la visualización
+                setupGradientCircles(data);
+                
+            } catch (error) {
+                console.error('Error cargando CSV:', error);
+                document.getElementById('csv-status').className = 'error';
+                document.getElementById('csv-status').textContent = 'Error cargando datos del CSV. Usando datos de ejemplo...';
+                
+                // Usar datos de ejemplo si falla la carga
+                const fallbackData = [
+                    { A: 50, B: 60, r: Infinity },
+                    { A: 80, B: 90, r: Infinity },
+                    { A: 120, B: 150, r: Infinity },
+                    { A: 200, B: 180, r: Infinity },
+                    { A: 250, B: 100, r: Infinity },
+                    { A: 70, B: 270, r: Infinity },
+                    { A: 100, B: 30, r: Infinity }
+                ];
+                
+                setTimeout(() => {
+                    document.getElementById('csv-status').style.display = 'none';
+                    document.getElementById('csv-visualization').style.display = 'block';
+                    setupGradientCircles(fallbackData);
+                }, 2000);
+            }
+        }
 
+        function setupGradientCircles(data) {
             const svg1 = d3.select("#brush1");
             const svg2 = d3.select("#brush2");
 
@@ -365,7 +414,7 @@
                     .each(function() { this.bogus_opacity = 1.0; })
                     .attr("x1", prvX).attr("y1", prvY)
                     .attr("x2", crrX).attr("y2", crrY)
-                    .attr("stroke", "#667eea")
+                    .attr("stroke", "#32CD32")
                     .attr("stroke-width", 2);
                 
                 prvX = crrX;
@@ -380,9 +429,9 @@
         }
 
         // Inicializar todas las visualizaciones
-        function initDashboard() {
+        async function initDashboard() {
             setupMouseCoords();
-            setupGradientCircles();
+            await loadCSVAndSetupGradientCircles(); // Cargar CSV primero
             setupDragDrop();
             setupStaggeredBars();
             setupLissajous();
